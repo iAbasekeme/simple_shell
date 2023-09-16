@@ -2,42 +2,47 @@
 
 char **split_string(char *str)
 {
-    int cur_position = 0;
-    char **tokens;
-    int i;
-    int count = 0;
-    char *token;
-    char *dup_str;
+	int cur_position = 0;
+	char **tokens;
+	int i;
+	int count = 0;
+	char *token;
+	char *dup_str;
 
-    dup_str = strdup(str);
-    token = _strtok(dup_str, " \t\n");
+	dup_str = strdup(str);
+	if (!dup_str)
+	{
+		perror("strdup");
+		exit(EXIT_FAILURE);
+	}
+	token = _strtok(dup_str, " \t\n");
 
-    while (token != NULL)
-    {
-        cur_position++;
-        token = _strtok(NULL, " \t\n");
-    }
-    tokens = malloc((cur_position + 1) * sizeof(char *));
-    if (tokens == NULL)
-    {
-        free(tokens);
-        return NULL;
-    }
+	while (token != NULL)
+	{
+		cur_position++;
+		token = _strtok(NULL, " \t\n");
+	}
+	tokens = malloc((cur_position + 1) * sizeof(char *));
+	if (tokens == NULL)
+	{
+		free(tokens);
+		exit(EXIT_FAILURE);
+	}
 
-    token = _strtok(str, " \t\n");
-    while (token != NULL)
-    {
-        tokens[count++] = strdup(token);
+	token = _strtok(str, " \t\n");
+	while (token != NULL)
+	{
+		tokens[count++] = strdup(token);
 
-        token = _strtok(NULL, " \t\n");
-    }
-    tokens[count] = NULL;
+		token = _strtok(NULL, " \t\n");
+	}
+	tokens[count] = NULL;
 
-    for (i = 0; i < count; i++)
-    {
-        printf("%s\n", tokens[i]);
-    }
+	for (i = 0; i < count; i++)
+	{
+		printf("splitted line: %s\n", tokens[i]);
+	}
 
-    free(dup_str);
-    return (tokens);
+	free(dup_str);
+	return (tokens);
 }

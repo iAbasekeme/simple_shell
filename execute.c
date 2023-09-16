@@ -1,33 +1,35 @@
 #include "shell.h"
 
-int exc_fork(const char **path, char *const argv[], char *const envp[])
+int exc_fork(char **path, char *argv[], char *envp[])
 {
-    pid_t pid;
-    int status;
-    int result;
+	char *exec_func = search_exec(path[0]);
 
-    pid = fork();
+	pid_t pid;
+	int status;
+	int result;
 
-    if (pid == -1)
-    {
-        perror("fork");
-        return (-1);
-    }
+	pid = fork();
 
-    if (pid == 0)
-    {
-        result = execve(path[0], path, envp);
+	if (pid == -1)
+	{
+		perror("fork");
+		return (-1);
+	}
 
-        if (result == -1)
-        {
-            perror("execve");
-            exit(EXIT_FAILURE);
-        }
-    }
-    waitpid(pid, &status, 0);
-    if (WIFEXITED(status))
-    {
-        status = WEXITSTATUS(status);
-    }
-    return (status);
+	if (pid == 0)
+	{
+		result = execve(exec_func, path, envp);
+
+		if (result == -1)
+		{
+			perror("execve");
+			exit(EXIT_FAILURE);
+		}
+	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		return (WEXITSTATUS(status));
+	}
+	return (status);
 }

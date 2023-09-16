@@ -1,25 +1,37 @@
 #include "shell.h"
 
-int main()
+int main(int ac, char *argv[], char *env[])
 {
-    char *prompt = "#cisfun$ ";
-    char *line;
-    char **str;
+	(void)ac;
 
-    while (1)
-    {
-        printf("%s", prompt);
-        fflush(stdout);
+	char *prompt = "#cisfun$ ";
+	char *line;
+	char **str;
+	int exp_fork;
+	int i = 0;
 
-        line = get_line();
+	while (1)
+	{
+		printf("%s", prompt);
+		fflush(stdout);
 
-        str = split_string(line);
+		line = get_line();
 
-        exec_fork();
+		str = split_string(line);
+		printf("first command: %s\n", str[0]);
 
-        free(line);
-        free(str);
-    }
+		exp_fork = exc_fork(str, argv, env);
 
-    return 0;
+		// printf()
+		// printf("%s", search_ex);
+		// exec = exc_fork(command);
+		// if (exec == 0)
+		// {
+		// 	perror("exec_fork");
+		// }
+
+		free(str);
+	}
+
+	return 0;
 }
