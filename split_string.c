@@ -1,10 +1,15 @@
 #include "shell.h"
 
+/**
+ * split_string - A fucntion that splits an array of strings
+ * @str: array to be tokenized
+ *
+ * Return: The splitted strings as tokens
+ */
 char **split_string(char *str)
 {
 	int cur_position = 0;
 	char **tokens;
-	int i;
 	int count = 0;
 	char *token;
 	char *dup_str;
@@ -13,36 +18,35 @@ char **split_string(char *str)
 	if (!dup_str)
 	{
 		perror("strdup");
+		free(str);
 		exit(EXIT_FAILURE);
 	}
-	token = _strtok(dup_str, " \t\n");
+	token = strtok(dup_str, " \n");
 
 	while (token != NULL)
 	{
 		cur_position++;
-		token = _strtok(NULL, " \t\n");
+		token = strtok(NULL, " \n");
 	}
 	tokens = malloc((cur_position + 1) * sizeof(char *));
 	if (tokens == NULL)
 	{
-		free(tokens);
+		perror("malloc");
+		free(str);
+		free(dup_str);
 		exit(EXIT_FAILURE);
 	}
 
-	token = _strtok(str, " \t\n");
+	token = strtok(str, " \n");
 	while (token != NULL)
 	{
-		tokens[count++] = strdup(token);
+		tokens[count++] = _strdup(token);
 
-		token = _strtok(NULL, " \t\n");
+		token = strtok(NULL, " \n");
 	}
 	tokens[count] = NULL;
 
-	for (i = 0; i < count; i++)
-	{
-		printf("splitted line: %s\n", tokens[i]);
-	}
-
 	free(dup_str);
-	return (tokens);
+
+	return tokens;
 }
