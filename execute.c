@@ -1,5 +1,14 @@
 #include "shell.h"
 
+/**
+ * exc_fork - A function that executes a line
+ * @path: path to the file
+ * @argv: argument vector
+ * @envp: environment array
+ *
+ * Return: status of file
+ */
+
 int exc_fork(char **path, char *argv[], char *envp[])
 {
 	char *exec_func = search_exec(path[0]);
@@ -7,6 +16,9 @@ int exc_fork(char **path, char *argv[], char *envp[])
 	pid_t pid;
 	int status;
 	int result;
+	int y = 0;
+
+	(void)argv;
 
 	pid = fork();
 
@@ -23,13 +35,32 @@ int exc_fork(char **path, char *argv[], char *envp[])
 		if (result == -1)
 		{
 			perror("execve");
+
+			for (; path[y] != NULL; y++)
+			{
+				free(path[y]);
+			}
+			free(path);
+			free(exec_func);
 			exit(EXIT_FAILURE);
 		}
 	}
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
+	else
 	{
-		return (WEXITSTATUS(status));
+		waitpid(pid, &status, 0);
+		free(exec_func);
+		if (WIFEXITED(status))
+		{
+			return (WEXITSTATUS(status));
+		}
+		else
+		{
+			free(path);
+			free(exec_func);
+			exit(EXIT_FAILURE);
+		}
 	}
+	free(path);
+	free(exec_func);
 	return (status);
 }
