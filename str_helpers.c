@@ -1,34 +1,6 @@
 #include "shell.h"
 
 /**
- * _strspn - search a string for a set of bytes
- *@s: source string
- *@accept: accepted string
- *
- * Return: number of bytes in the init segment
- */
-unsigned int _strspn(char *s, char *accept)
-{
-	unsigned int a = 0, b, t = 0;
-
-	while (accept[a])
-	{
-		b = 0;
-
-		while (s[b] != 32)
-		{
-			if (accept[a] == s[b])
-			{
-				t++;
-			}
-			b++;
-		}
-		a++;
-	}
-	return (t);
-}
-
-/**
  * _strlen - Returns the length of a string
  * @s: length of string to be printed.
  *
@@ -70,76 +42,57 @@ char *_strchr(char *s, char c)
 }
 
 /**
- * _strtok - splits string.
- * @str: the input string.
- * @delim: the string containing delimiter characters.
- *
- * Return: a pointer to the next token found in the input string, or NULL.
- */
-
-char *_strtok(char *str, const char *delim)
-{
-	static char *s; /* Local buffer to track the progress */
-	int i;			/* Delimiter index */
-	char *token;
-
-	if (str != NULL)
-		s = str;
-
-	else if (*s == '\0')
-	{
-		return (NULL);
-	}
-	while (*s != '\0')
-	{
-		for (i = 0; delim[i] != '\0'; i++)
-		{
-			if (*s == delim[i])
-				break;
-		}
-		if (delim[i] == '\0')
-			break;
-		s++;
-	}
-	token = s;
-
-	while (*s != '\0')
-	{
-		for (i = 0; delim[i] != '\0'; i++)
-		{
-			if (*s == delim[i])
-			{
-				*s = '\0';
-				s++;
-				return (token);
-			}
-		}
-		s++;
-	}
-	s = "\0";
-	return (token);
-}
-/**
  * _strcmp - a function that compares two strings
  * @s1: string to be compared
  * @s2: another string to be compared
  *
  * Return: int value
  */
-// int _strcmp(const char *s1, const char *s2)
-// {
-// 	int i = 0;
+int _strcmp(char *s1, char *s2)
+{
+	int i = 0;
 
-// 	while (s1[i] && s2[i] != '\0')
-// 	{
-// 		if (s1[i] != s2[i])
-// 		{
-// 			return (s1[i] - s2[i]);
-// 		}
-// 		i++;
-// 	}
-// 	return (s1[i] - s2[i]);
-// }
+	while (s1[i] && s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+		{
+			return (s1[i] - s2[i]);
+		}
+		i++;
+	}
+	return (s1[i] - s2[i]);
+}
+
+/**
+ * _strdup - duplicates a string.
+ * @str: the string to be duplicated.
+ *
+ * Return: a pointer to newly allocated memory containing a duplicate of @str.
+ * NULL if insufficient memory is available or @str is NULL.
+ */
+char *_strdup(const char *str)
+{
+	char *new_str;
+	size_t len;
+
+	if (str == NULL)
+	{
+		return (NULL);
+	}
+
+	len = strlen(str);
+	new_str = malloc(sizeof(char) * (len + 1));
+
+	if (!new_str)
+	{
+		return (NULL);
+	}
+
+	_strncpy(new_str, str, len + 1);
+
+	return (new_str);
+	free(new_str);
+}
 
 /**
  * *_strncpy - a function that copies a string.
@@ -161,6 +114,13 @@ char *_strcpy(char *dest, char *src)
 	return (dest);
 }
 
+/**
+ * _strcat - concatenates two strings.
+ * @dest: the destination string.
+ * @src: the source string to be appended to the destination.
+ *
+ * Return: pointer to the resulting string @dest.
+ */
 char *_strcat(char *dest, char *src)
 {
 	int i = 0;
@@ -178,5 +138,29 @@ char *_strcat(char *dest, char *src)
 	}
 
 	dest[len] = '\0';
+	return (dest);
+}
+
+/**
+ * _strncpy - copy up to n characters from source string to dest buffer.
+ * @dest: the destination buffer where the copied string will be stored.
+ * @src: the source string to be copied.
+ * @n: the maximum number of characters to copy.
+ *
+ * Return: a pointer to the destination buffer.
+ */
+
+char *_strncpy(char *dest, const char *src, size_t n)
+{
+	size_t i;
+
+	for (i = 0; i < n && src[i] != '\0'; i++)
+	{
+		dest[i] = src[i];
+	}
+	for (; i < n; i++)
+	{
+		dest[i] = '\0';
+	}
 	return (dest);
 }
