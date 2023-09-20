@@ -3,7 +3,7 @@
 /**
  * main - A main function
  * @ac: argument count
- * @av: argument vector
+ * @argv: argument vector
  * @env: environment
  *
  * Return: 0 on success
@@ -57,5 +57,6 @@ int main(int ac, char *argv[], char *env[])
 		free(str);
 	}
 	free(line);
-	return 0;
+	return (0);
 }
+

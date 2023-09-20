@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ * get_line - a function that get line from the standard inputs
+ * @void: just an empty result
+ * Return: gotten line
+ */
 char *get_line(void)
 {
 	char *line = NULL;
@@ -33,3 +38,4 @@ char *get_line(void)
 	printf("Gotten line:%s\n", line);
 	return (line);
 }
+

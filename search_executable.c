@@ -2,7 +2,7 @@
 
 /**
  * search_exec - A function that searches for executable in a file
- * @comand: command to search for
+ * @command: command to search for
  *
  * Return: Duplicated string of the command
  */
@@ -48,3 +48,4 @@ char *search_exec(char *command)
 	free(path);
 	return (NULL);
 }
+

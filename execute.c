@@ -9,7 +9,7 @@
  * Return: status of file
  */
 
-int exc_fork(char **path, char *argv[], char *envp[])
+int _exc_fork(char **path, char *argv[], char *envp[])
 {
 	char *exec_func = search_exec(path[0]);
 

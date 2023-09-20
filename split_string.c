@@ -48,5 +48,5 @@ char **split_string(char *str)
 
 	free(dup_str);
 
-	return tokens;
+	return (tokens);
 }
