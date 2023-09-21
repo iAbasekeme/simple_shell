@@ -16,10 +16,10 @@ extern char **environ;
 
 int main(int ac, char *argv[], char *env[]);
 char **split_string(char *str);
-int *get_line(char **a, size_t *b, ...);
+char *get_line(void);
 char *_getenv(const char *name);
 char *search_exec(char *command);
-int exc_fork(char **path, char *argv[], char *envp[]);
+int _exc_fork(char **path, char *argv[], char *envp[]);
 
 unsigned int _strspn(char *s, char *accept);
 int _strlen(char *s);

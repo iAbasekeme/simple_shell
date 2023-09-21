@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * exc_fork - A function that executes a line
+ * _exc_fork - A function that executes a line
  * @path: path to the file
  * @argv: argument vector
  * @envp: environment array

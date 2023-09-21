@@ -2,9 +2,12 @@
 
 /**
  * get_line - a function that get line from the standard inputs
- * @void: just an empty result
+ * @a: directing the it to its destination
+ * @b: taking care of the functions
  * Return: gotten line
  */
+
+/*int *get_line(char **a, size_t *b, ...)*/
 char *get_line(void)
 {
 	char *line = NULL;
