@@ -14,7 +14,7 @@ int main(int ac, char *argv[], char *env[])
 	char **str, *prompt = "#cisfun$ ";
 	char *line = NULL;
 	ssize_t input_read;
-	int j = 0, u = 0;
+	int j, u = 0;
 
 	(void)ac;
 
@@ -48,6 +48,7 @@ int main(int ac, char *argv[], char *env[])
 			exit(EXIT_SUCCESS);
 		}
 		_exc_fork(str, argv, env);
+		j = 0;
 
 		while (str[j] != NULL)
 		{
