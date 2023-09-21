@@ -47,7 +47,7 @@ int main(int ac, char *argv[], char *env[])
 			free(line);
 			exit(EXIT_SUCCESS);
 		}
-		exc_fork(str, argv, env);
+		_exc_fork(str, argv, env);
 
 		while (str[j] != NULL)
 		{
@@ -59,4 +59,3 @@ int main(int ac, char *argv[], char *env[])
 	free(line);
 	return (0);
 }
-
