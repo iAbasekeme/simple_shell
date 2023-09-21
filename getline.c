@@ -2,8 +2,6 @@
 
 /**
  * get_line - a function that get line from the standard inputs
- * @a: directing the it to its destination
- * @b: taking care of the functions
  * Return: gotten line
  */
 
@@ -41,4 +39,3 @@ char *get_line(void)
 	printf("Gotten line:%s\n", line);
 	return (line);
 }
-
