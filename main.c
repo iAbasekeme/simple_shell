@@ -26,6 +26,8 @@ int main(int ac, char *argv[], char *env[])
 			write(1, prompt, prompdisp);
 		}
 		input_read = getline(&line, &n, stdin);
+		if (input_read == 0)
+			continue;
 		if (input_read == -1)
 		{
 			free(line);
