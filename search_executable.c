@@ -39,6 +39,7 @@ char *search_exec(char *command)
 	if (stat(command, &buf) == 0)
 	{
 		free(path);
+		free(path_copy);
 		free(executable_path);
 		return (strdup(command));
 	}
@@ -48,4 +49,3 @@ char *search_exec(char *command)
 	free(path);
 	return (NULL);
 }
-
