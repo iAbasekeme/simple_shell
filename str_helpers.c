@@ -97,7 +97,7 @@ char *_strdup(char *str)
 }
 
 /**
- * *_strncpy - a function that copies a string.
+ * *_strcpy - a function that copies a string.
  * @dest: destination value
  * @src: source value
  *
