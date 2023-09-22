@@ -23,18 +23,18 @@ int main(int ac, char *argv[], char *env[])
 			write(1, prompt, prompdisp);
 		}
 		input_read = getline(&line, &n, stdin);
-		if (_strcmp(line, "") == 0)
-			continue;
 		if (input_read == -1)
 		{
 			free(line);
 			exit(EXIT_SUCCESS);
 		}
+		if (_strcmp(line, "") == 0)
+			continue;
 		i = 0;
 		while (i < _strlen(line) && line[i] != '\0' && line[i] == ' ')
 		{
 			i++;
-			/**continue;*/
+			continue;
 		}
 		str = split_string(line);
 		if (_strcmp(str[0], "exit") == 0)
