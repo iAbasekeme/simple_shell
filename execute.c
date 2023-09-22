@@ -47,18 +47,7 @@ int _exc_fork(char **path, char *argv[], char *envp[])
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
-		free(exec_func);
-		if (WIFEXITED(status))
-		{
-			return (WEXITSTATUS(status));
-		}
-		else
-		{
-			free(path);
-			free(exec_func);
-			exit(EXIT_FAILURE);
-		}
+		_checkstatus(status);
 	}
 	free(path);
 	free(exec_func);
