@@ -14,6 +14,7 @@ int main(int ac, char *argv[], char *env[])
 	char *line = NULL, *line_dup = NULL;
 	ssize_t input_read;
 	int j, u = 0, i;
+	char **env = environ;
 	(void)ac;
 	while (1)
 	{
@@ -39,6 +40,13 @@ int main(int ac, char *argv[], char *env[])
 			continue;
 		line_dup = _strdup(line + i);
 		str = split_string(line);
+		if (_strcmp(str[0], "env") == 0)
+		{
+			for (*env = environ; *env != NULL; *env++)
+			{
+				write(STDOUT_FILENO, *env, _strlen(*env));
+			}
+		}
 		if (_strcmp(str[0], "exit") == 0)
 		{
 			for (; str[u] != NULL; u++)
