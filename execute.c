@@ -38,7 +38,6 @@ int _exc_fork(char **path, char *argv[], char *envp[])
 	}
 	else
 		wait(&status);
-	free(path);
 	free(exec_func);
 	return (status);
 }
