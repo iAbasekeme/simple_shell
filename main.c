@@ -1,5 +1,4 @@
 #include "shell.h"
-
 /**
  * main - A main function
  * @ac: argument count
@@ -15,9 +14,7 @@ int main(int ac, char *argv[], char *env[])
 	char *line = NULL;
 	ssize_t input_read;
 	int j, u = 0, i = 0;
-
 	(void)ac;
-
 	while (1)
 	{
 		if (isatty(0) == 1)
@@ -31,7 +28,7 @@ int main(int ac, char *argv[], char *env[])
 		else if (input_read == -1)
 		{
 			free(line);
-			exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
 		while (i < _strlen(line) && line[i] != '\0' && line[i] == ' ')
 		{
