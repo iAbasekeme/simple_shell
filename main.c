@@ -13,7 +13,7 @@ int main(int ac, char *argv[], char *env[])
 	char **str, *prompt = "#cisfun$ ";
 	char *line = NULL;
 	ssize_t input_read;
-	int j, u = 0, i = 0;
+	int j, u = 0, i;
 	(void)ac;
 	while (1)
 	{
@@ -25,15 +25,16 @@ int main(int ac, char *argv[], char *env[])
 		input_read = getline(&line, &n, stdin);
 		if (_strcmp(line, "") == 0)
 			continue;
-		else if (input_read == -1)
+		if (input_read == -1)
 		{
 			free(line);
 			exit(EXIT_SUCCESS);
 		}
+		i = 0;
 		while (i < _strlen(line) && line[i] != '\0' && line[i] == ' ')
 		{
 			i++;
-			continue;
+			/**continue;*/
 		}
 		str = split_string(line);
 		if (_strcmp(str[0], "exit") == 0)
