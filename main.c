@@ -11,7 +11,7 @@ int main(int ac, char *argv[], char *env[])
 {
 	size_t prompdisp, n;
 	char **str, *prompt = "#cisfun$ ";
-	char *line = NULL;
+	char *line = NULL, *line_dup = NULL;
 	ssize_t input_read;
 	int j, u = 0, i;
 	(void)ac;
@@ -35,6 +35,9 @@ int main(int ac, char *argv[], char *env[])
 			i++;
 			continue;
 		}
+		if ((!line + i))
+			continue;
+		line_dup = _strdup(line + i);
 		str = split_string(line);
 		if (_strcmp(str[0], "exit") == 0)
 		{
@@ -44,6 +47,7 @@ int main(int ac, char *argv[], char *env[])
 			}
 			free(str);
 			free(line);
+			free(line_dup);
 			exit(EXIT_SUCCESS);
 		}
 		_exc_fork(str, argv, env);
@@ -57,5 +61,6 @@ int main(int ac, char *argv[], char *env[])
 		free(str);
 	}
 	free(line);
+	free(line_dup);
 	return (0);
 }
