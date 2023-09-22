@@ -28,7 +28,7 @@ char **split_string(char *str)
 		cur_position++;
 		token = strtok(NULL, " \n");
 	}
-	tokens = malloc((cur_position + 1) * sizeof(char *) + 200);
+	tokens = malloc((cur_position + 1) * sizeof(char *));
 	if (tokens == NULL)
 	{
 		perror("malloc");
