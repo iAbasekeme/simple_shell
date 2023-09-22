@@ -10,11 +10,11 @@
  */
 int main(int ac, char *argv[], char *env[])
 {
-	size_t prompdisp, n, i = 0;
+	size_t prompdisp, n;
 	char **str, *prompt = "#cisfun$ ";
 	char *line = NULL;
 	ssize_t input_read;
-	int j, u = 0;
+	int j, u = 0, i = 0;
 
 	(void)ac;
 
@@ -22,24 +22,24 @@ int main(int ac, char *argv[], char *env[])
 	{
 		if (isatty(0) == 1)
 		{
-			prompdisp = strlen(prompt);
+			prompdisp = _strlen(prompt);
 			write(1, prompt, prompdisp);
 		}
 		input_read = getline(&line, &n, stdin);
-		if (input_read == 0)
+		if (_strcmp(line, "") == 0)
 			continue;
-		if (input_read == -1)
+		else if (input_read == -1)
 		{
 			free(line);
 			exit(EXIT_FAILURE);
 		}
-		while (i < strlen(line) && line[i] != '\0' && line[i] == ' ')
+		while (i < _strlen(line) && line[i] != '\0' && line[i] == ' ')
 		{
 			i++;
 			continue;
 		}
 		str = split_string(line);
-		if (strcmp(str[0], "exit") == 0)
+		if (_strcmp(str[0], "exit") == 0)
 		{
 			for (; str[u] != NULL; u++)
 			{

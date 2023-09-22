@@ -17,7 +17,7 @@ extern char **environ;
 int main(int ac, char *argv[], char *env[]);
 char **split_string(char *str);
 char *get_line(void);
-char *_getenv(const char *name);
+char *_getenv(char *name);
 char *search_exec(char *command);
 int _exc_fork(char **path, char *argv[], char *envp[]);
 
@@ -28,5 +28,5 @@ int _strcmp(char *s1, char *s2);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 char *_strncpy(char *dest, const char *src, size_t n);
-char *_strdup(const char *str);
+char *_strdup(char *str);
 #endif

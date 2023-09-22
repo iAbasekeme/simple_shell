@@ -50,17 +50,19 @@ char *_strchr(char *s, char c)
  */
 int _strcmp(char *s1, char *s2)
 {
-	int i = 0;
-
-	while (s1[i] && s2[i] != '\0')
+	while (((*s1 != '\0') && (*s2 != '\0')) && (*s1 == *s2))
 	{
-		if (s1[i] != s2[i])
-		{
-			return (s1[i] - s2[i]);
-		}
-		i++;
+		s1++;
+		s2++;
 	}
-	return (s1[i] - s2[i]);
+	if (*s1 == *s2)
+	{
+		return (0);
+	}
+	else
+	{
+		return (*s1 - *s2);
+	}
 }
 
 /**
@@ -70,7 +72,7 @@ int _strcmp(char *s1, char *s2)
  * Return: a pointer to newly allocated memory containing a duplicate of @str.
  * NULL if insufficient memory is available or @str is NULL.
  */
-char *_strdup(const char *str)
+char *_strdup(char *str)
 {
 	char *new_str;
 	size_t len;
@@ -80,7 +82,7 @@ char *_strdup(const char *str)
 		return (NULL);
 	}
 
-	len = strlen(str);
+	len = _strlen(str);
 	new_str = malloc(sizeof(char) * (len + 1));
 
 	if (!new_str)

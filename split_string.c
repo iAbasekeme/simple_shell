@@ -14,10 +14,10 @@ char **split_string(char *str)
 	char *token;
 	char *dup_str;
 
-	dup_str = strdup(str);
+	dup_str = _strdup(str);
 	if (!dup_str)
 	{
-		perror("strdup");
+		perror("_strdup");
 		free(str);
 		exit(EXIT_FAILURE);
 	}
