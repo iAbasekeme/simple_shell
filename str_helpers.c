@@ -107,6 +107,9 @@ char *_strcpy(char *dest, char *src)
 {
 	int j = 0;
 
+	if (dest == NULL)
+		return (NULL);
+
 	while (src[j])
 	{
 		dest[j] = src[j];
