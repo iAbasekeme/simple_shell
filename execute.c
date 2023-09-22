@@ -19,7 +19,6 @@ int _exc_fork(char **path, char *argv[], char *envp[])
 	int y = 0;
 
 	(void)argv;
-
 	pid = fork();
 
 	if (pid == -1)
@@ -27,7 +26,6 @@ int _exc_fork(char **path, char *argv[], char *envp[])
 		perror("fork");
 		return (-1);
 	}
-
 	if (pid == 0)
 	{
 		result = execve(exec_func, path, envp);
@@ -35,7 +33,6 @@ int _exc_fork(char **path, char *argv[], char *envp[])
 		if (result == -1)
 		{
 			perror("execve");
-
 			for (; path[y] != NULL; y++)
 			{
 				free(path[y]);
