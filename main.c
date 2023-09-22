@@ -28,8 +28,7 @@ int main(int ac, char *argv[], char *env[])
 			free(line);
 			exit(EXIT_SUCCESS);
 		}
-		if (_strcmp(line, "") == 0)
-			continue;
+		line[input_read] = '\0';
 		i = 0;
 		while (i < _strlen(line) && line[i] != '\0' && line[i] == ' ')
 		{
