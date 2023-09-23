@@ -9,6 +9,7 @@
  */
 int execute(char **tokens, char **argv, char **env, int number)
 {
+
 	struct builtin commands[] = {
 		{"cd", my_cd},
 		{NULL, NULL}
@@ -46,36 +47,43 @@ int execute(char **tokens, char **argv, char **env, int number)
 
 	if (my_exit(tokens[0]))
 	{
+
 		if (tokens[1] != NULL)
 		{
 			exit_status = atoi(tokens[1]);
 			free(enter_command), enter_command = NULL;
 			free_array(tokens);
+
 			exit(exit_status);
 		}
 		else
 		{
 			free_array(tokens);
 			exit(2);
+
 		}
 	}
 
 	if (enter_command == NULL || ((_strcmp(tokens[0], "hbtn_ls") == 0) && tokens[1] == NULL))
 	{
+
 		erro_mess(argv[0], tokens[0], number);
 		free_array(tokens);
 		free(enter_command), enter_command = NULL;
+
 		exit(127);
+
 	}
+
 	else
 	{
-		child_pid = fork(); /* Here we create a child process*/
+		child_pid = fork();
 		if (child_pid == -1)
 		{
 			perror("Error: ");
 			exit(EXIT_FAILURE);
 		}
-		if (child_pid == 0) /*Here we execute command*/
+		if (child_pid == 0)
 		{
 			if ((execve(enter_command, tokens, env) == -1))
 			{
@@ -85,7 +93,7 @@ int execute(char **tokens, char **argv, char **env, int number)
 				exit(EXIT_FAILURE);
 			}
 		}
-		else /*Herre we are waiting for child process*/
+		else
 		{
 			if (waitpid(child_pid, &status, 0) == -1)
 			{
@@ -95,9 +103,9 @@ int execute(char **tokens, char **argv, char **env, int number)
 
 			free(enter_command), enter_command = NULL;
 			free_array(tokens);
-			/*return (status);*/
-			return (0);
 		}
+
+		return (0);
 	}
 }
 
