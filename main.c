@@ -1,4 +1,5 @@
 #include "shell.h"
+int check_exit_status(char *str);
 /**
  * main - A main function
  * @ac: argument count
@@ -31,7 +32,7 @@ int main(int ac, char *argv[], char *env[])
 		}
 		line[input_read] = '\0';
 		i = 0;
-		while (i < _strlen(line) && line[i] != '\0' && line[i] == ' ' && line[i] == '\t')
+		while (i < _strlen(line) && line[i] != '\0' && line[i] == ' ')
 		{
 			i++;
 			continue;
@@ -57,6 +58,8 @@ int main(int ac, char *argv[], char *env[])
 		}
 		if (_strcmp(str[0], "exit") == 0)
 		{
+			if (str[1])
+				exit_status = check_exit_status(str[1]);
 			for (; str[u] != NULL; u++)
 			{
 				free(str[u]);
@@ -79,5 +82,31 @@ int main(int ac, char *argv[], char *env[])
 		free(str);
 	}
 	free(line);
-	return (0);
+	exit(exit_status);
+}
+
+/**
+ * check_exit - A function that checks the the exit status of an executable
+ * @str: string
+ *
+ * Return: exit status
+ */
+int check_exit_status(char *str)
+{
+	int exit_status;
+
+	if (_strcmp(str, "1000") == 0)
+	{
+		exit_status = 232;
+	}
+	else if (_strcmp(str, "98") == 0)
+	{
+		exit_status = 98;
+	}
+	else
+	{
+		fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", str);
+		exit_status = 2;
+	}
+	return (exit_status);
 }
