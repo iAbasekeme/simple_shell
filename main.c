@@ -66,7 +66,7 @@ int main(int ac, char *argv[], char *env[])
 			}
 			free(str);
 			free(line);
-			exit(EXIT_SUCCESS);
+			exit(exit_status);
 		}
 		if (_exc_fork(str, argv, env) == EXIT_FAILURE)
 			exit_status = 127;
