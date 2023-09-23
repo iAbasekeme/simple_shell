@@ -15,6 +15,11 @@ int _exc_fork(char **path, char *argv[], char *envp[])
 	int y = 0;
 
 	(void)argv;
+	if (exec_func == NULL)
+	{
+		fprintf(stderr, "./hsh : 1 %s: not found\n", path[0]);
+		return (EXIT_FAILURE);
+	}
 	pid = fork();
 	if (pid == -1)
 	{
@@ -39,5 +44,5 @@ int _exc_fork(char **path, char *argv[], char *envp[])
 	else
 		wait(&status);
 	free(exec_func);
-	return (status);
+	return (EXIT_SUCCESS);
 }
