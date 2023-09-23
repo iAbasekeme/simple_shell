@@ -1,11 +1,17 @@
 #include "shell.h"
+
 /**
- * my_exit -function that exit program
- * @input: command enter by user
- * Return: 0
+ * _exit_builtin - builtin exit
+ *
+ * @array_of_tokens: command array
+ *
+ * Return: 0 if failure 1 if sucess
  */
-int my_exit(char *input)
+int _exit_builtin(char **array_of_tokens)
 {
-	return (_strcmp(input, "exit") == 0);
+	if (array_of_tokens[1] != NULL)
+		exit(atoi(array_of_tokens[1]));
+	else
+		return (EXIT_CODE);
 }
 

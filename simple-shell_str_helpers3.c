@@ -1,87 +1,41 @@
-#include "shell.h"
+#include "list.h"
 
 /**
- * *_strcat - concatenates @src to @dest
- * @src: the source string to append to @dest
- * @dest: the destiation string to be concatenated upon
- * Return:pointer to the resulting string
+ * add_nodetoken_end - adds a new node at the end of a listtoken_t list
+ *
+ * Description: function adds a new node to the end f the linked list
+ *
+ * @head: points to a pointer that points to the first node
+ * @token: the token to add
+ *
+ * Return: the address of the new element, or NULL if it failed
  */
-
-char *_strcat(char *dest, char *src)
+listtoken_t *add_nodetoken_end(listtoken_t **head, char *token)
 {
-	int index = 0;
-	int dest_len = 0;
+	listtoken_t *new_node, *last_node;
 
-	while (dest[index++])
-		dest_len++;
-	for (index = 0; src[index]; index++)
-		dest[dest_len++] = src[index];
-	dest[dest_len] = '\0';
-	return (dest);
-}
-/**
- * _strdup - duplicate a string and allocate the same memory
- * @str: string to be duplicated
- * Return: a pointer
- */
-char *_strdup(char *str)
-{
-
-	char *p;
-	int len_str, i;
-
-	if (str == NULL)
-	{
+	if (head == NULL)
 		return (NULL);
-	}
 
-	len_str = _strlen(str) + 1;
-	p = malloc(sizeof(char) * len_str);
-
-	if (p == NULL)
-	{
+	new_node = malloc(sizeof(listtoken_t));
+	if (new_node == NULL)
 		return (NULL);
-	}
 
-	for (i =  0; i < len_str; i++)
+	new_node->token = token;
+	new_node->token_length = strlen(token);
+	new_node->next = NULL;
+
+	if (*head == NULL)
+		*head = new_node;
+	else
 	{
-		p[i] = str[i];
+		last_node = *head;
+		while (last_node->next != NULL)
+			last_node = last_node->next;
+
+		last_node->next = new_node;
 	}
 
-	return (p);
-}
-/**
- * _strcpy - main function to copy
- *
- * @dest: destination to copy
- * @src: src
- *
- * Return: a character value
- */
-char *_strcpy(char *dest, char *src)
-{
-	int i;
-	int len = _strlen(src);
-
-	for (i = 0; i <= len; i++)
-	{
-		dest[i] = src[i];
-	}
-	return (dest);
-}
-/**
- * _strlen - gets character string
- *
- * @s: character to getstring
- * Return: returns length
- */
-int _strlen(char *s)
-{
-	int len;
-
-	for (len = 0; s[len] != '\0'; len++)
-	{
-	}
-	return (len);
+	return (last_node);
 }
 

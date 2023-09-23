@@ -1,32 +1,18 @@
 #include "shell.h"
-/**
- * _getenv - function to  get the environmeent  variable
- * @va_env: name if environment
- * Return: pointer to the specific env  or NUL
- */
-char *_getenv(char *va_env)
-{
-	char *token;
-	char *next;
-	char *env;
-	char *temp;
-	int i;
 
-	for (i =  0; environ[i] != NULL;  i++)
-	{
-		temp = _strdup(environ[i]);
-		token = strtok(temp, "=");
-		if (_strcmp(token, va_env) == 0)/*search for env variable*/
-		{
-			next = strtok(NULL, "\n");/**pass to the next environment
-						   * separe by the previous by \n
-						   */
-			env = _strdup(next);
-			free(temp);
-			return (env);
-		}
-		free(temp), temp = NULL;
-	}
-	return (NULL);
+/**
+ * _print_env - short description
+ *
+ * Description: long description
+ *
+ * Return: return description
+ */
+int _print_env(void)
+{
+	unsigned int environ_index;
+
+	for (environ_index = 0; __environ[environ_index]; environ_index++)
+		printf("%s\n", __environ[environ_index]);
+	return (0);
 }
 

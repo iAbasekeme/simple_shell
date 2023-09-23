@@ -1,50 +1,33 @@
 #include "shell.h"
+
 /**
- * _split - function that split a given input
- * @input: string to be tokenize
- * Return: an array of pointer store the tokens
+ * error_not_found - Printing custom error for not found command
+ * @arvs: command-line args
+ * @array_of_tokens: tokenized array of strings
+ * @command_num: counter
+ *
+ * Return: void
  */
-char **_split(char *input)
+int error_not_found(char **arvs, char **array_of_tokens, size_t command_num)
 {
-	int count = 0;
-	int numb_tok = 0;
-	char *token = NULL;
-	char **tokens = NULL;
-	char *cp_input = NULL;
+	char *error_str;
+	char *command_num_str = _itoa(command_num);
+	int size = (strlen(arvs[0]) + (2 * strlen(": ")) +
+			digit_counter(command_num) + strlen(array_of_tokens[0]) +
+			strlen(": not found\n") + 1);
 
-	if (input == NULL)
-	{
-		return (NULL);
-	}
-	cp_input = _strdup(input);
-	token = strtok(cp_input, " \t\n");
-	if (token == NULL)
-	{
-		free(input), input =  NULL;
-		free(cp_input), cp_input = NULL;
-		return (NULL);
-	}
-	while (token != NULL)
-	{
-		numb_tok++;
-		token = strtok(NULL, " \t\n");
-	}
-	tokens = malloc((sizeof(char *) * (numb_tok + 1)));
-	if (tokens == NULL)
-	{
-		free(input), input = NULL;
-		return (NULL);
-	}
+	malloc_char(&error_str, size, "error_not_found Error: malloc error");
+	strcpy(error_str, arvs[0]);
+	strcat(error_str, ": ");
+	strcat(error_str, command_num_str);
+	strcat(error_str, ": ");
+	strcat(error_str, array_of_tokens[0]);
+	strcat(error_str, ": not found\n");
+	strcat(error_str, "\0");
 
-	token = strtok(input, " \t\n");
-	while (token != NULL)
-	{
-		tokens[count++] = _strdup(token);
-		token = strtok(NULL, " \t\n"); /*get the next token*/
-	}
-	tokens[count] = NULL;
-	free(input), input = NULL;
-	free(cp_input), cp_input = NULL;
-	return (tokens);
+	write(STDERR_FILENO, error_str, strlen(error_str));
+	free(error_str);
+	free(command_num_str);
+	return (127);
 }
 

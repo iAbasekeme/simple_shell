@@ -1,27 +1,14 @@
 #include "shell.h"
+
 /**
- * erro_mess - fucntion that print message error
- * @name: name of program
- * @input: command enter by the user
- * @number: number of executed command
+ * prompt - short description
+ *
+ * Description: long description
+ *
+ * Return: -1 on failure greater than 0 on success
  */
-void erro_mess(char *name, char *input, int number)
+void prompt(void)
 {
-	char *convert = convert_number(number);/**allocated memory
-						* from convert_number
-						*/
-
-	char *message = ": not found";
-	int len_message = _strlen(message);
-
-	write(STDERR_FILENO, name, _strlen(name));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, convert, _strlen(convert));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, input, _strlen(input));
-	write(STDERR_FILENO, message, len_message);
-	write(STDERR_FILENO, "\n", 1);
-
-	free(convert);
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "$ ", strlen("$ "));
 }
-
