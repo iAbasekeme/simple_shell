@@ -6,6 +6,7 @@
  *
  * Return: the number of the digits
  */
+/*
 int digit_counter(size_t command_num)
 {
 	int digit_count = 0;
@@ -19,5 +20,5 @@ int digit_counter(size_t command_num)
 	}
 
 	return (digit_count);
-}
+}*/
 

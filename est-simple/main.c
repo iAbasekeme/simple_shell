@@ -8,12 +8,16 @@
  * @ac: argument_1 description
  * @arvs: argument_2 description
  * @envp: argument_3 desctiontion
+ * @argc : int main first argument
+ * @argv : int main command command line argument vector
+ * @envp : environment variable
  *
  * Return: return description
  */
-int main(__attribute((unused)) int ac,
+/*int main(__attribute((unused)) int ac,
 		__attribute((unused)) char **arvs,
-		__attribute((unused)) char **envp)
+		__attribute((unused)) char **envp,
+		int argc, char **argv, char **envp)
 {
 	int status = 0;
 	char *input, *delimiter, *which;
@@ -53,5 +57,44 @@ int main(__attribute((unused)) int ac,
 		free_main(array_of_tokens, input);
 		input = NULL;
 	}
+
+	if (!(argc < 2))
+	{
+		printf("Usage: %s path_to_file ...\n", argv[0]);
+		return (1);
+	}
+	if (!isatty(STDIN_FILENO))
+		non_inter_mode(argc, argv, envp);
+	else
+	{
+		interract(argc, argv, envp);
+	}
+
+	return (0);
+}*/
+/*a testing main*/
+/**
+ *  main - shell main entry point
+ *  @argc : int main first argument
+ *  @argv : int main command command line argument vector
+ *  @envp : environment variable
+ *
+ *  Return: return 0 upon success
+ *
+ */
+int main(int argc, char **argv, char **envp)
+{
+	if (!(argc < 2))
+	{
+		printf("Usage: %s path_to_file ...\n", argv[0]);
+		return (1);
+	}
+	if (!isatty(STDIN_FILENO))
+		non_inter_mode(argc, argv, envp);
+	else
+	{
+		interract(argc, argv, envp);
+	}
+	/*free(line);*/
 	return (0);
 }

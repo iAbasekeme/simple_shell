@@ -53,3 +53,26 @@ dkms.conf
 
 #executable
 hsh
+
+#some c files
+simple-shell_command.c
+simple-shell_display.c
+simple-shell_error.c
+simple-shell_executes.c
+simple-shell_exit_program.c
+simple-shell_get_environ2.c
+simple-shell_get_environ.c
+simple-shell_getline.c
+simple-shell_readline.c
+simple-shell_search_executable.c
+simple-shell_spare2.c
+simple-shell_spare3.c
+simple-shell_spare4.c
+simple-shell_spare5.c
+simple-shell_spare6.c
+simple-shell_spare7.c
+simple-shell_spare.c
+simple-shell_split_string.c
+simple-shell_str_helpers2.c
+simple-shell_str_helpers3.
+simple-shell_str_helpers3.c
