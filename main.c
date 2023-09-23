@@ -1,61 +1,89 @@
 #include "shell.h"
-
 /**
- * main - A main function
- * @ac: argument count
- * @argv: argument vector
- * @env: environment
- *
- * Return: 0 on success
+ * sigint_handler - function to send signal for ctrl + c
  */
-int main(int ac, char *argv[], char *env[])
+void sigint_handler()
 {
-	size_t prompdisp, n, i = 0;
-	char **str, *prompt = "#cisfun$ ";
-	char *line = NULL;
-	ssize_t input_read;
-	int j = 0, u = 0;
+	char *prompt_shell = "\n#cisfun$ ";
 
-	(void)ac;
+	write(STDOUT_FILENO, prompt_shell, _strlen(prompt_shell));
+}
+/**
+ * interactive_mode - shell interaction mode
+ * @argv: array of argument
+ * @env: the environment
+ */
+void interactive_mode(char **argv, char **env)
+{
+	char *line;
+	char **tokens;
+	char *prompt_shell = "#cisfun$ ";
+	int len = _strlen(prompt_shell);
+	int number = 0;
+
 
 	while (1)
 	{
-		if (isatty(0) == 1)
+		if (signal(SIGINT, sigint_handler) == SIG_ERR)
 		{
-			prompdisp = strlen(prompt);
-			write(1, prompt, prompdisp);
-		}
-		input_read = getline(&line, &n, stdin);
-		if (input_read == -1)
-		{
-			free(line);
+			perror("signal");
 			exit(EXIT_FAILURE);
 		}
-		while (i < strlen(line) && line[i] != '\0' && line[i] == ' ')
+		write(STDOUT_FILENO, prompt_shell, len);
+		line = prompt();
+		if (line == NULL)
 		{
-			i++;
+			write(STDOUT_FILENO, "\n", 1);
+			free(line);
+		}
+		tokens =  _split(line);
+		if (tokens == NULL)
+		{
 			continue;
 		}
-		str = split_string(line);
-		if (strcmp(str[0], "exit") == 0)
-		{
-			for (; str[u] != NULL; u++)
-			{
-				free(str[u]);
-			}
-			free(str);
-			free(line);
-			exit(EXIT_SUCCESS);
-		}
-		_exc_fork(str, argv, env);
-
-		while (str[j] != NULL)
-		{
-			free(str[j]);
-			j++;
-		}
-		free(str);
+		number++;
+		execute(tokens, argv, env, number);
 	}
-	free(line);
+}
+
+/**
+ * main -my own shell program
+ * @argc: number of argument
+ * @argv: array of argumemnt
+ * @env: environment
+ * Return: 0 if success, otherwise -1
+ */
+int main(int argc __attribute__((unused)), char **argv, char **env)
+{
+
+	char *line;
+	/*char *command[] = {NULL, NULL};*/
+	char **tokens;
+	int number = 0;
+
+	if (isatty(STDIN_FILENO) == 1) /*check if we are in interactive mode*/
+	{
+		interactive_mode(argv, env);
+	}
+	else
+	{
+		while (1)
+		{
+			/*line = non_interactive();*/
+			line = prompt();
+			if (line == NULL)
+			{
+				/*write(STDOUT_FILENO, "\n", 1);*/
+				free(line), line = NULL;
+				exit(EXIT_SUCCESS);
+			}
+			tokens = _split(line);
+			if (tokens == NULL)
+				continue;
+			number++;
+			execute(tokens, argv, env, number);
+		}
+	}
 	return (0);
 }
+
