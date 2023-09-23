@@ -17,7 +17,7 @@ int _exc_fork(char **path, char *argv[], char *envp[])
 	(void)argv;
 	if (exec_func == NULL)
 	{
-		fprintf(stderr, "./hsh : 1 %s: not found\n", path[0]);
+		fprintf(stderr, "./hsh: 1: %s: not found\n", path[0]);
 		return (EXIT_FAILURE);
 	}
 	pid = fork();
