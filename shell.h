@@ -19,6 +19,8 @@ char **split_string(char *str);
 char *get_line(void);
 char *_getenv(char *name);
 char *search_exec(char *command);
+int check_exit_status(char *str);
+char *search_exec(char *command);
 int _exc_fork(char **path, char *argv[], char *envp[]);
 
 unsigned int _strspn(char *s, char *accept);
