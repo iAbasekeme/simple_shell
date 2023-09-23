@@ -21,12 +21,12 @@ char **split_string(char *str)
 		free(str);
 		exit(EXIT_FAILURE);
 	}
-	token = strtok(dup_str, " \n");
+	token = strtok(dup_str, " \t\n");
 
 	while (token != NULL)
 	{
 		cur_position++;
-		token = strtok(NULL, " \n");
+		token = strtok(NULL, " \t\n");
 	}
 	tokens = malloc((cur_position + 1) * sizeof(char *));
 	if (tokens == NULL)
@@ -37,12 +37,12 @@ char **split_string(char *str)
 		exit(EXIT_FAILURE);
 	}
 
-	token = strtok(str, " \n");
+	token = strtok(str, " \t\n");
 	while (token != NULL)
 	{
 		tokens[count++] = _strdup(token);
 
-		token = strtok(NULL, " \n");
+		token = strtok(NULL, " \t\n");
 	}
 	tokens[count] = NULL;
 
